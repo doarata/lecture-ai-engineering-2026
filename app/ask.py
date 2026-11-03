@@ -34,7 +34,7 @@ def ask(question: str, chat: Chat | None = None) -> str:
         chat = create_chat(client)
     response = chat.send_message(question)
 
-    usage = response.usage_metadata
+    usage = getattr(response, "usage_metadata", None)
     input_tokens = usage.prompt_token_count if usage else "不明"
     output_tokens = usage.candidates_token_count if usage else "不明"
     print(f"[トークン数] 入力: {input_tokens}, 出力: {output_tokens}")
